@@ -15,13 +15,7 @@ if (process.env.TRAVIS_NODE_VERSION === '0.8') {
       if (err) {
         throw new Error(err);
       }
-      // I'm unsure what this one is for, but whatever.
-      exec('npm install --global npm', function (err) {
-        if (err) {
-          throw new Error(err);
-        }
-        console.log('Upgraded to npm@2');
-      });
+      console.log('Upgraded to npm@2');
     });
   });
 }
