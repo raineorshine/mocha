@@ -40,11 +40,13 @@ lint:
 	@printf "==> [Test :: Lint]\n"
 	@$(ESLINT) $(SRC)
 
-test: lint test-unit
+test-node: test-bdd test-tdd test-qunit test-exports test-unit test-integration test-jsapi test-compilers test-glob test-requires test-reporters test-only
 
-test-all: lint mocha.js test-bdd test-tdd test-qunit test-exports test-unit test-integration test-jsapi test-compilers test-glob test-requires test-reporters test-only test-browser test-browser-bdd test-browser-qunit test-browser-tdd test-browser-exports
+test-browser: mocha.js test-browser-unit test-browser-bdd test-browser-qunit test-browser-tdd test-browser-exports
 
-test-browser:
+test: lint test-node test-browser
+
+test-browser-unit:
 	@printf "==> [Test :: Browser]\n"
 	@$(KARMA) start
 
@@ -190,4 +192,4 @@ tm:
 	@printf "==> [TM]\n"
 	@open editors/$(TM_BUNDLE)
 
-.PHONY: test-phantom test-cov test-jsapi test-compilers watch test test-all test-bdd test-tdd test-qunit test-exports test-unit test-integration non-tty tm clean test-browser test-browser-bdd test-browser-qunit test-browser-tdd test-browser-exports
+.PHONY: test-cov test-jsapi test-compilers watch test test-node test-bdd test-tdd test-qunit test-exports test-unit test-integration non-tty tm clean test-browser test-browser-unit test-browser-bdd test-browser-qunit test-browser-tdd test-browser-exports lint

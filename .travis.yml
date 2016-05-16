@@ -8,22 +8,33 @@ dist: trusty
 
 language: node_js
 
-node_js:
-  - '6'
-  - '5'
-  - '4'
-  - 'iojs'
-  - '0.12'
-  - '0.11'
-  - '0.10'
-  - '0.8'
+matrix:
+  include:
+    - node_js: '6'
+      env: TARGET=test-node
+      env: TARGET=test-browser
+      env: TARGET=lint
+    - node_js: '5'
+      env: TARGET=test-node
+    - node_js: '4'
+      env: TARGET=test-node
+    - node_js: 'iojs'
+      env: TARGET=test-node
+    - node_js: '0.12'
+      env: TARGET=test-node
+    - node_js: '0.11'
+      env: TARGET=test-node
+    - node_js: '0.10'
+      env: TARGET=test-node
+    - node_js: '0.8'
+      env: TARGET=test-node
 
 before_install:
   # node 0.8 won't install our dev deps with an out-of-box npm;
   # this upgrades it
   - node ./scripts/upgrade-npm.js
 
-script: travis_retry npm test
+script: travis_retry make $TARGET
 
 addons:
   sauce_connect:

@@ -267,7 +267,7 @@
   },
   "scripts": {
     "preinstall": "node scripts/fake-karma-mocha-peer-dep.js",
-    "test": "make test-all"
+    "test": "make test"
   },
   "dependencies": {
     "commander": "2.3.0",
