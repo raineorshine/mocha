@@ -1,6 +1,6 @@
 BROWSERIFY := node_modules/.bin/browserify
-PHANTOMJS := node_modules/.bin/mocha-phantomjs
 ESLINT := node_modules/.bin/eslint
+KARMA := node_modules/.bin/karma
 
 REPORTER ?= spec
 TM_BUNDLE = JavaScript\ mocha.tmbundle
@@ -12,7 +12,7 @@ all: mocha.js
 
 mocha.js: $(SRC) $(SUPPORT)
 	@printf "==> [Browser :: build]\n"
-	@$(BROWSERIFY) ./support/browser-entry \
+	@$(BROWSERIFY) ./browser-entry \
 		--ignore 'fs' \
 		--ignore 'glob' \
 		--ignore 'jade' \
@@ -20,26 +20,9 @@ mocha.js: $(SRC) $(SUPPORT)
 		--ignore 'supports-color' \
 		--exclude './lib-cov/mocha' > $@
 
-phantomjs-bundle.js: $(TESTS)
-	@printf "==> [Test :: build]\n"
-	@$(BROWSERIFY) \
-		./support/browser-entry \
-		test/browser/index.js \
-		test/acceptance/context.js \
-		test/acceptance/required-tokens.js \
-		--ignore 'jade' \
-		--exclude './lib-cov/mocha' \
-		--exclude './test/acceptance/interfaces/*.js' \
-		> $@
-
-test-phantom: phantomjs-bundle.js
-	@printf "==> [Test :: PhantomJS]\n"
-	$(PHANTOMJS) -R spec test/browser/index.html
-
 clean:
 	@printf "==> [Clean]\n"
 	rm -f mocha.js
-	rm -f phantomjs-bundle.js
 	rm -rf test-outputs
 	rm -rf lib-cov
 	rm -f coverage.html
@@ -59,7 +42,23 @@ lint:
 
 test: lint test-unit
 
-test-all: lint test-bdd test-tdd test-qunit test-exports test-unit test-integration test-jsapi test-compilers test-glob test-requires test-reporters test-only
+test-all: lint mocha.js test-bdd test-tdd test-qunit test-exports test-unit test-integration test-jsapi test-compilers test-glob test-requires test-reporters test-only test-browser test-browser-bdd test-browser-qunit test-browser-tdd test-browser-exports
+
+test-browser:
+	@printf "==> [Test :: Browser]\n"
+	@$(KARMA) start
+
+test-browser-bdd:
+	@printf "==> [Test :: Browser :: BDD]\n"
+	@KARMA_INTERFACE=bdd $(MAKE) test-browser
+
+test-browser-qunit:
+	@printf "==> [Test :: Browser :: QUnit]\n"
+	@KARMA_INTERFACE=qunit $(MAKE) test-browser
+
+test-browser-tdd:
+	@printf "==> [Test :: Browser :: TDD]\n"
+	@KARMA_INTERFACE=tdd $(MAKE) test-browser
 
 test-jsapi:
 	@printf "==> [Test :: JS API]\n"
@@ -191,4 +190,4 @@ tm:
 	@printf "==> [TM]\n"
 	@open editors/$(TM_BUNDLE)
 
-.PHONY: test-phantom test-cov test-jsapi test-compilers watch test test-all test-bdd test-tdd test-qunit test-exports test-unit test-integration non-tty tm clean
+.PHONY: test-phantom test-cov test-jsapi test-compilers watch test test-all test-bdd test-tdd test-qunit test-exports test-unit test-integration non-tty tm clean test-browser test-browser-bdd test-browser-qunit test-browser-tdd test-browser-exports
