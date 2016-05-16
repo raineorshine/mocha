@@ -11,9 +11,7 @@ language: node_js
 matrix:
   include:
     - node_js: '6'
-      env: TARGET=test-node
-      env: TARGET=test-browser
-      env: TARGET=lint
+      env: TARGET="lint test-node test-browser"
     - node_js: '5'
       env: TARGET=test-node
     - node_js: '4'
