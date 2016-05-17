@@ -38,7 +38,7 @@ function getConfig() {
     concurrency: Infinity
   };
 
-  if (process.TRAVIS) {
+  if (process.env.TRAVIS) {
     cfg.reporters.push('saucelabs');
     cfg.browsers.push('ie8');
     cfg.customLaunchers = {
