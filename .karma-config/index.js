@@ -1,7 +1,6 @@
 function getConfig() {
   var cfg = {
     frameworks: [
-      'source-map-support',
       'browserify',
       'should',
       'mocha'
