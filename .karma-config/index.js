@@ -1,5 +1,5 @@
 function getConfig() {
-  return {
+  var cfg = {
     frameworks: [
       'source-map-support',
       'browserify',
@@ -23,10 +23,8 @@ function getConfig() {
     browserify: {
       debug: true,
       configure: function configure(b) {
-        b.ignore('fs')
-          .ignore('glob')
+        b.ignore('glob')
           .ignore('jade')
-          .ignore('path')
           .ignore('supports-color')
           .exclude('./lib-cov/mocha');
       }
@@ -39,6 +37,24 @@ function getConfig() {
     singleRun: true,
     concurrency: Infinity
   };
+
+  if (process.env.CI) {
+    cfg.reporters.push('saucelabs');
+    cfg.browsers.push('ie8');
+    cfg.customLaunchers = {
+      ie8: {
+        base: 'SauceLabs',
+        browserName: 'internet explorer',
+        platform: 'Windows XP',
+        version: '8'
+      }
+    };
+    cfg.sauceLabs = {
+      testName: 'Mocha Browser Tests',
+      build: process.env.TRAVIS_BUILD_NUMBER
+    };
+  }
+  return cfg;
 }
 
 getConfig.uiFixturePaths = {
