@@ -52,15 +52,15 @@ test-browser-unit:
 
 test-browser-bdd:
 	@printf "==> [Test :: Browser :: BDD]\n"
-	@KARMA_INTERFACE=bdd $(MAKE) test-browser
+	@KARMA_INTERFACE=bdd $(MAKE) test-browser-unit
 
 test-browser-qunit:
 	@printf "==> [Test :: Browser :: QUnit]\n"
-	@KARMA_INTERFACE=qunit $(MAKE) test-browser
+	@KARMA_INTERFACE=qunit $(MAKE) test-browser-unit
 
 test-browser-tdd:
 	@printf "==> [Test :: Browser :: TDD]\n"
-	@KARMA_INTERFACE=tdd $(MAKE) test-browser
+	@KARMA_INTERFACE=tdd $(MAKE) test-browser-unit
 
 test-jsapi:
 	@printf "==> [Test :: JS API]\n"
