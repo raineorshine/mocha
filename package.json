@@ -293,7 +293,7 @@
     "karma-sauce-launcher": "^1.0.0",
     "karma-should": "^1.0.0",
     "karma-source-map-support": "^1.1.0",
-    "phantomjs": "1.9.19",
+    "phantomjs": "1.9.8",
     "should": "~8.0.0",
     "through2": "~0.6.5",
     "watchify": "^3.7.0"
