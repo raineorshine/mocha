@@ -38,7 +38,7 @@ function getConfig() {
     concurrency: Infinity
   };
 
-  if (process.env.CI) {
+  if (process.TRAVIS) {
     cfg.reporters.push('saucelabs');
     cfg.browsers.push('ie8');
     cfg.customLaunchers = {
@@ -46,13 +46,21 @@ function getConfig() {
         base: 'SauceLabs',
         browserName: 'internet explorer',
         platform: 'Windows XP',
-        version: '8'
+        version: '8.0'
       }
     };
     cfg.sauceLabs = {
-      testName: 'Mocha Browser Tests',
-      build: process.env.TRAVIS_BUILD_NUMBER
+      testName: 'Karma Tests',
+      build: 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' ('
+        + process.env.TRAVIS_BUILD_ID + ')',
+      public: 'public',
+      tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+      startConnect: false
     };
+    // Debug logging into a file, that we print out at the end of the build.
+    cfg.logLevel = 'DEBUG';
+    cfg.browserNoActivityTimeout = 120000;
+    cfg.captureTimeout = 0;
   }
   return cfg;
 }
