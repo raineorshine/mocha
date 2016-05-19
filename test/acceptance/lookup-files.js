@@ -24,8 +24,7 @@ describe('lookupFiles', function() {
     fs.renameSync('/tmp/mocha-utils.js', '/tmp/bob');
     expect(existsSync('/tmp/mocha-utils-link.js'))
       .to
-      .be
-      .false();
+      .be(false);
     expect(utils.lookupFiles('/tmp', ['js'], false))
       .to
       .eql([]);
