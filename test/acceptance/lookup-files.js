@@ -20,8 +20,7 @@ describe('lookupFiles', function() {
       .length(2);
     expect(existsSync('/tmp/mocha-utils-link.js'))
       .to
-      .be
-      .true();
+      .be(true);
     fs.renameSync('/tmp/mocha-utils.js', '/tmp/bob');
     expect(existsSync('/tmp/mocha-utils-link.js'))
       .to
