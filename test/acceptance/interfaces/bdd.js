@@ -1,14 +1,14 @@
 describe('Array', function(){
   describe('#indexOf()', function(){
     it('should return -1 when the value is not present', function(){
-      [1,2,3].indexOf(5).should.equal(-1);
-      [1,2,3].indexOf(0).should.equal(-1);
+      expect([1,2,3].indexOf(5)).to.equal(-1);
+      expect([1,2,3].indexOf(0)).to.equal(-1);
     })
 
     it('should return the correct index when the value is present', function(){
-      [1,2,3].indexOf(1).should.equal(0);
-      [1,2,3].indexOf(2).should.equal(1);
-      [1,2,3].indexOf(3).should.equal(2);
+      expect([1,2,3].indexOf(1)).to.equal(0);
+      expect([1,2,3].indexOf(2)).to.equal(1);
+      expect([1,2,3].indexOf(3)).to.equal(2);
     })
   })
 })
@@ -17,8 +17,8 @@ describe('Array', function(){
   describe('#pop()', function(){
     it('should remove and return the last value', function(){
       var arr = [1,2,3];
-      arr.pop().should.equal(3);
-      arr.should.eql([1,2]);
+      expect(arr.pop()).to.equal(3);
+      expect(arr).to.eql([1,2]);
     })
   })
 })
@@ -29,6 +29,6 @@ context('Array', function(){
   })
 
   specify('has a length property', function(){
-    this.arr.length.should.equal(3);
+    expect(this.arr.length).to.equal(3);
   })
 })
