@@ -12,12 +12,12 @@ describe('lookupFiles', function() {
   it('should not choke on symlinks', function() {
     expect(utils.lookupFiles('/tmp', ['js'], false))
       .to
-      .containEql('/tmp/mocha-utils-link.js')
+      .contain('/tmp/mocha-utils-link.js')
       .and
-      .containEql('/tmp/mocha-utils.js')
+      .contain('/tmp/mocha-utils.js')
       .and
       .have
-      .lengthOf(2);
+      .length(2);
     expect(existsSync('/tmp/mocha-utils-link.js'))
       .to
       .be
@@ -35,12 +35,12 @@ describe('lookupFiles', function() {
   it('should accept a glob "path" value', function() {
     expect(utils.lookupFiles('/tmp/mocha-utils*', ['js'], false))
       .to
-      .containEql('/tmp/mocha-utils-link.js')
+      .contain('/tmp/mocha-utils-link.js')
       .and
-      .containEql('/tmp/mocha-utils.js')
+      .contain('/tmp/mocha-utils.js')
       .and
       .have
-      .lengthOf(2);
+      .length(2);
   });
 
   afterEach(function() {
