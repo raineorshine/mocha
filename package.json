@@ -294,7 +294,7 @@
     "karma-phantomjs-launcher": "^0.2.3",
     "karma-sauce-launcher": "^1.0.0",
     "karma-should": "^1.0.0",
-    "phantomjs": "1.9.8",
+    "phantomjs": "^2.0.0",
     "should": "~8.0.0",
     "through2": "~0.6.5",
     "watchify": "^3.7.0"
